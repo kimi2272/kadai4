@@ -8,7 +8,7 @@ fi
 
 # 引数が自然数であることを確認
 if ! [[ "$1" =~ ^[0-9]+$ ]] || ! [[ "$2" =~ ^[0-9]+$ ]]; then
-    echo "Both arguments must be natural numbers."
+    echo "自然数を入力下さい."
     exit 1
 fi
 
