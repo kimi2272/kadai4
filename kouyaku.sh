@@ -19,7 +19,7 @@ num2=$2
 gcd() {
     local a=$1
     local b=$2
-    while [ $b -ne 0 ]; then
+    while [ $b -ne 0 ]; do
         local temp=$b
         b=$((a % b))
         a=$temp
@@ -30,3 +30,4 @@ gcd() {
 # 最大公約数を計算して表示
 gcd $num1 $num2
 
+#2024-0609-2158

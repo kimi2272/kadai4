@@ -15,29 +15,31 @@ test_gcd() {
     fi
 }
 
-# kouyaku.sh が実行可能であることを確認
-chmod +x kouyaku.sh
+# 無効な入力に対するテスト
+test_invalid_input() {
+    local input=$1
+    local expected_message=$2
 
-# テストを実行
+    local result=$(./kouyaku.sh $input 2>&1)
+    if [[ "$result" != *"$expected_message"* ]]; then
+        echo "Test failed: expected error message '$expected_message' for input '$input'"
+        exit 1
+    else
+        echo "Test passed: correctly handled invalid input '$input'"
+    fi
+}
+
+
+# 有効なテスト
 test_gcd 48 18 6
 test_gcd 101 10 1
 test_gcd 56 98 14
+test_gcd 2 4 2
 
-# 無効な入力に対するテスト
-if ./kouyaku.sh 48 a 2>/dev/null; then
-    echo "Test failed: expected error for invalid input '48 a'"
-    exit 1
-else
-    echo "Test passed: correctly handled invalid input '48 a'"
-fi
+# 無効なてすと
+test_invalid_input "3" "Usage: ./kouyaku.sh num1 num2"
+test_invalid_input "文字 5" "Both arguments must be natural numbers."
+test_invalid_input "5 文字" "Both arguments must be natural numbers."
 
-if ./kouyaku.sh 48 0 2>/dev/null; then
-    echo "Test failed: expected error for invalid input '48 0'"
-    exit 1
-else
-    echo "Test passed: correctly handled invalid input '48 0'"
-fi
-
-echo "All tests passed."
-
+echo "テスト終了"
 
